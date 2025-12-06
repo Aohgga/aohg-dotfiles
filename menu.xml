@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu>
+  <!-- Note: for localization support of menu items "client-menu" has to be removed here -->
+  <menu id="client-menu">
+    <item label="最小化">
+      <action name="Iconify" />
+    </item>
+    <item label="最大化">
+      <action name="ToggleMaximize" />
+    </item>
+    <item label="全屏">
+      <action name="ToggleFullscreen" />
+    </item>
+    <item label="折叠/展开">
+      <action name="ToggleShade" />
+    </item>
+    <item label="装饰">
+      <action name="ToggleDecorations" />
+    </item>
+    <item label="置顶">
+      <action name="ToggleAlwaysOnTop" />
+    </item>
+    <!--
+    Any menu with the id "workspaces" will be hidden
+    if there is only a single workspace available.
+    -->
+    <menu id="workspaces" label="工作区">
+      <item label="向左移动">
+        <action name="SendToDesktop" to="left" />
+      </item>
+      <item label="向右移动">
+        <action name="SendToDesktop" to="right" />
+      </item>
+      <separator />
+      <item label="在所有工作区可见">
+        <action name="ToggleOmnipresent" />
+      </item>
+    </menu>
+    <!--
+    openbox default workspace selector
+    to use replace above workspace menu with the example below
+    the label is required, but you can change the text.
+
+    <menu id="client-send-to-menu" label="Send to..." />
+  -->
+    <item label="关闭">
+      <action name="Close" />
+    </item>
+  </menu>
+
+  <menu id="always-use" label="常用应用">
+    <item label="Librewolf">
+      <action name="Execute" command="librewolf" />
+    </item>
+    <item label="Steam">
+      <action name="Execute" command="env XCURSOR_SIZE=48 /usr/bin/steam" />
+    </item>
+    <item label="Heroic">
+      <action name="Execute" command="heroic" />
+    </item>
+    <item label="Papers">
+      <action name="Execute" command="papers" />
+    </item>
+    <item label="LocalSend">
+      <action name="Execute" command="localsend" />
+    </item>
+    <item label="OBS Studio">
+      <action name="Execute" command="obs" />
+    </item>
+  </menu>
+
+  <menu id="root-menu">
+    <!-- Make client-list-combined-menu a submenu of root-menu
+       You must supply a label or it will not appear in root-menu -->
+    <!--
+    <menu id="client-list-combined-menu" label="Running..." />
+    -->
+    <menu id="applications" label="应用菜单"
+      execute="xdg_menu --format openbox3-pipe --root-menu /etc/xdg/menus/arch-applications.menu" />
+    <menu id="manga" label="漫画" execute="~/.config/labwc/scripts/conky-pipemenu-v4 /home/aohg/Documents/漫画/" />
+    <menu id="always-use" />
+    <menu id="playerctl" label="音乐" execute= "~/.config/labwc/scripts/music.sh" />
+    <menu id="quickemu" label="虚拟机">
+      <item label="Windows10">
+        <action name="Execute" command="quickemu --vm windows-10-Chinese-Simplified.conf" />
+      </item>
+      <item label="Windows11">
+        <action name="Execute" command="quickemu --vm windows-11-Chinese-Simplified.conf" />
+      </item>
+    </menu>
+    <menu id="tui" label="终端应用">
+      <item label="btop">
+        <action name="Execute" command="foot --title=btop -e btop" />
+      </item>
+      <item label="cava">
+        <action name="Execute" command="foot -e cava" />
+      </item>
+      <item label="musicfox">
+        <action name="Execute" command="foot --title=musicfox -e musicfox" />
+      </item>
+      <item label="nvim">
+        <action name="Execute" command="foot --title=nvim -e nvim" />
+      </item>
+      <item label="nvtop">
+        <action name="Execute" command="foot --title=nvtop -e nvtop" />
+      </item>
+      <item label="pacseek">
+        <action name="Execute" command="foot --title=pacseek -e pacseek" />
+      </item>
+      <item label="ttyper">
+        <action name="Execute" command="foot --title=ttyper -e ttyper" />
+      </item>
+      <item label="yazi">
+        <action name="Execute" command="foot -e yazi" />
+      </item>
+      <item label="Microsoft Edit">
+        <action name="Execute" command="foot -e msedit" />
+      </item>
+    </menu>
+    <menu id="command" label="指令/脚本">
+      <item label="更新系统">
+        <action name="Execute" command="foot -e yay -Syu" />
+      </item>
+      <item label="区域截屏">
+        <action name="Execute" command="~/.config/scripts/screenshot" />
+      </item>
+      <item label="截全屏">
+        <action name="Execute" command="~/.config/scripts/screenshot f" />
+      </item>
+      <item label="取色">
+        <action name="Execute" command="hyprpicker -a" />
+      </item>
+      <item label="清空剪贴板">
+        <action name="Execute" command="cliphist wipe" />
+      </item>
+    </menu>
+    <item label="终端模拟器">
+      <action name="Execute" command="foot" />
+    </item>
+    <item label="文件管理器">
+      <action name="Execute" command="thunar" />
+    </item>
+    <item label="网络浏览器">
+      <action name="Execute" command="librewolf" />
+    </item>
+    <item label="文件搜索器">
+      <action name="Execute" command="catfish" />
+    </item>
+    <separator />
+    <menu id="setting" label="设置">
+      <item label="声音">
+        <action name="Execute" command="pavucontrol-qt" />
+      </item>
+      <item label="蓝牙">
+        <action name="Execute" command="blueman-manager" />
+      </item>
+      <item label="网络">
+        <action name="Execute" command="nm-connection-editor" />
+      </item>
+      <item label="壁纸">
+        <action name="Execute" command="waypaper" />
+      </item>
+      <item label="GTK设置">
+        <action name="Execute" command="nwg-look" />
+      </item>
+      <item label="qt5设置">
+        <action name="Execute" command="qt5ct" />
+      </item>
+      <item label="qt6设置">
+        <action name="Execute" command="qt6ct" />
+      </item>
+      <item label="kvantum设置">
+        <action name="Execute" command="kvantummanager" />
+      </item>
+      <item label="输入法设置">
+        <action name="Execute" command="fcitx5-configtool" />
+      </item>
+      <item label="mako设置(通知)">
+        <action name="Execute" command="foot -e nvim ~/.config/mako/config" />
+      </item>
+      <menu id="labwc-setting" label="labwc设置">
+        <item label="labwc菜单">
+          <action name="Execute" command="foot -e nvim ~/.config/labwc/menu.xml" />
+        </item>
+        <item label="labwc配置">
+          <action name="Execute" command="foot -e nvim ~/.config/labwc/rc.xml" />
+        </item>
+        <item label="labwc环境变量">
+          <action name="Execute" command="foot -e nvim ~/.config/labwc/environment" />
+        </item>
+        <item label="labwc自启动">
+          <action name="Execute" command="foot -e nvim ~/.config/labwc/autostart" />
+        </item>
+      </menu>
+      <menu id="waybar-setting" label="waybar设置">
+        <item label="waybar配置">
+          <action name="Execute" command="foot -e nvim ~/.config/labwc/waybar/config.jsonc" />
+        </item>
+        <item label="waybar样式">
+          <action name="Execute" command="foot -e nvim ~/.config/labwc/waybar/style.css" />
+        </item>
+        <item label="重启waybar">
+          <action name="Execute" command="pkill -SIGUSR2 waybar" />
+        </item>
+      </menu>
+    </menu>
+    <separator />
+    <item label="重新加载">
+      <action name="Reconfigure" />
+    </item>
+    <menu id="power-menu" label="电源菜单">
+      <item label="关机">
+        <action name="Execute" command="shutdown now" />
+      </item>
+      <item label="重启">
+        <action name="Execute" command="reboot" />
+      </item>
+      <item label="锁定">
+        <action name="Execute" command="swaylock" />
+      </item>
+      <item label="注销">
+        <action name="Execute" command="labwc -e" />
+      </item>
+    </menu>
+  </menu>
+
+  <menu id="some-custom-menu">
+    <!--
+    Creates menu title.
+    To create an empty header with no text,
+    set label=" ", not label=""
+  -->
+    <separator label="custom menu" />
+    <item label="重新加载">
+      <action name="Reconfigure" />
+    </item>
+    <item label="退出">
+      <action name="Exit" />
+    </item>
+  </menu>
+</openbox_menu>
