@@ -1,0 +1,351 @@
+@import "colors.css";
+@import "mocha.css";
+
+* {
+  all: unset;
+  font-family: "苹方-简";
+  font-size: 12pt;
+  color: @on_surface;
+}
+
+#waybar {
+  background-color: alpha(@surface,1);
+}
+
+#workspaces {
+  background-color: transparent;
+  border-radius: 2px;
+  padding: 1px;
+  margin: 3px;
+}
+#workspaces button label {
+  font-family: "Maple Mono";
+}
+#workspaces button.urgent label,
+#workspaces button.active label {
+  color: @on_primary;
+}
+#workspaces button.urgent {
+  background-color: red;
+}
+#workspaces button {
+  border-radius: 2px;
+  margin: 2px;
+  min-width: 16px;
+  min-height: 20px;
+}
+#workspaces button.active {
+  background-color: @primary;
+}
+
+#apps {
+  padding: 2px 0;
+}
+
+#custom-app1,
+#custom-app2,
+#custom-app3 {
+  background-color: @primary;
+  border-radius: 3px;
+  color: @on_primary;
+  font-family: "JetBrainsMono Nerd Font Propo";
+  font-size: 13pt;
+  margin: 2px 1px;
+  min-height: 27px;
+  min-width: 27px;
+}
+
+#custom-app1:hover,
+#custom-app2:hover,
+#custom-app3:hover {
+  background-color: @tertiary;
+}
+
+#taskbar {
+  margin: 2px 1px;
+}
+
+#taskbar button {
+  background-color: @primary_container;
+  border-radius: 3px;
+  margin: 2px;
+  margin-right: 0;
+  min-height: 20px;
+  min-width: 20px;
+  padding: 0px;
+}
+#taskbar button image {
+  margin: 0 5 0 10px;
+}
+#taskbar button label {
+  margin: 0 5px 0 0;
+}
+
+#taskbar button:last-child {
+  margin-right: 2px;
+}
+
+#taskbar.empty {
+  border: none;
+}
+
+#taskbar button:hover,
+#taskbar button.active:hover,
+#taskbar button.minimized:hover {
+  background-color: @tertiary;
+}
+
+#taskbar button:hover label,
+#taskbar button.active:hover label,
+#taskbar button.minimized:hover label {
+  color: @on_tertiary;
+}
+
+#taskbar button.active {
+  background-color: @primary;
+}
+#taskbar button.active label {
+  color: @on_primary;
+}
+
+#taskbar button.minimized {
+  background-color: @surface_bright;
+}
+
+#taskbar button.minimized:hover {
+}
+
+#taskbar button.active:hover {
+}
+
+#window {
+  background-color: @secondary_container;
+  border-radius: 3px;
+  margin: 5px 2px;
+  padding: 0 5px;
+}
+
+#window label {
+  color: @on_secondary_container;
+  font-family: "Maple Mono NF CN";
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+.lyrics-mpv {
+  font-family: "Maple Mono CN";
+  font-size: 1.15rem;
+  font-style: Italic;
+  font-weight: normal;
+  padding: 0 5px;
+  min-width: 500px;
+  transition: 0.1s ease;
+}
+
+#custom-yinyang,
+#tray,
+#idle_inhibitor,
+#power-profiles-daemon,
+#pulseaudio,
+#backlight,
+#battery,
+#bluetooth,
+#clock {
+  background-color: @secondary_container;
+  color: @on_secondary_container;
+  border-radius: 3px;
+  font-family: "Maple Mono", "JetBrainsMono Nerd Font Propo";
+  font-size: 12pt;
+  font-style: normal;
+  font-weight: normal;
+  padding: 0 5px;
+  margin: 5px 4px;
+  margin-right: 0;
+}
+
+#bluetooth {
+  min-width: 20px;
+}
+#idle_inhibitor {
+  min-width: 20px;
+}
+#idle_inhibitor.activated {
+  color: @green;
+}
+#idle_inhibitor.deactivated {
+  color: @red;
+}
+#backlight {
+  min-width: 55px;
+}
+#pulseaudio {
+  min-width: 55px;
+}
+#pulseaudio.bluetooth {
+  background-color: @tertiary;
+  color: @on_tertiary;
+}
+#power-profiles-daemon {
+  min-width: 20px;
+}
+#power-profiles-daemon.performance {
+  color: @red;
+}
+#power-profiles-daemon.balanced {
+  color: @blue;
+}
+#power-profiles-daemon.power-saver {
+  color: @green;
+}
+
+#bluetooth {
+  min-width: 22px;
+}
+
+#bluetooth.off {
+  color: @outline;
+}
+
+#bluetooth.on {
+  color: @on_surface;
+}
+
+#bluetooth.connected {
+  background-color: @primary;
+  color: @on_primary;
+}
+
+#clock {
+  font-family: "Sitka";
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+/* 托盘+菜单 */
+#tray {
+}
+
+#tray menu {
+  background-color: alpha(@surface, 1);
+  border: 1px solid alpha(@on_secondary_fixed_variant, 1);
+  border-radius: 6px;
+}
+
+#tray menu label {
+  font-family: "微软雅黑";
+  font-size: 11pt;
+  font-weight: normal;
+}
+
+#tray menu menuitem {
+  margin: 3px;
+}
+
+#tray menu menuitem:disabled label {
+  color: gray;
+}
+
+#tray menu menuitem:hover {
+  background-color: alpha(@primary,1);
+}
+
+#tray menu menuitem:hover label {
+  color: @on_primary;
+}
+
+#tray menu menuitem:hover menuitem check,
+#tray menu menuitem:hover menuitem label {
+  color: @on_surface;
+}
+
+#tray menu menuitem:hover arrow,
+#tray menu menuitem:hover check,
+#tray menu menuitem:hover radio {
+  color: @on_primary;
+}
+
+#tray menu menuitem:hover menuitem:hover check,
+#tray menu menuitem:hover menuitem:hover label {
+  color: @on_primary;
+}
+
+
+
+#tray separator {
+  background-color: alpha(@on_secondary_fixed_variant, 1);
+  margin: 1px 6px;
+  min-height: 1px;
+}
+
+#tray arrow {
+  -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+  min-height: 1rem;
+  min-width: 1rem;
+}
+
+#tray arrow.top {
+  -gtk-icon-source: -gtk-icontheme("pan-up-symbolic")
+}
+
+#tray arrow.bottom {
+  -gtk-icon-source: -gtk-icontheme("pan-down-symbolic")
+}
+
+#tray check {
+  -gtk-icon-source: -gtk-icontheme("checkbox-symbolic");
+  margin-right: 3px;
+  min-height: 1rem;
+  min-width: 1rem;
+}
+
+#tray check:checked {
+  -gtk-icon-source: -gtk-icontheme("checkbox-checked-symbolic");
+}
+
+#tray radio {
+  -gtk-icon-source: -gtk-icontheme("radio-symbolic");
+  margin-right: 3px;
+  min-width: 1rem;
+  min-height: 1rem;
+}
+
+#tray radio:checked {
+  -gtk-icon-source: -gtk-icontheme("radio-checked-symbolic");
+}
+
+/* 工具提示 */
+tooltip {
+  background-color: alpha(@surface, 1);
+  border: 1px solid alpha(@on_secondary_fixed_variant, 1);
+  border-radius: 3px;
+}
+
+tooltip label {
+  font-size: 12pt;
+}
+
+/* 自定义菜单 */
+menu {
+  background-color: @surface;
+  border: 1px solid alpha(@on_secondary_fixed_variant, 1);
+  border-radius: 6px;
+  padding: 4px;
+}
+
+menuitem {
+  border-radius: 4px;
+  margin: 1px;
+  padding: 2px 4px;
+}
+
+menuitem * {
+  font-family: "微软雅黑";
+  font-size: 1rem;
+}
+
+menuitem:hover {
+  background-color: alpha(@primary, 1);
+}

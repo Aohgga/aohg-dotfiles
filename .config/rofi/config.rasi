@@ -1,0 +1,5 @@
+configuration {
+  show-icons: true;
+}
+
+@theme "/home/aohg/.local/share/rofi/themes/Simple_Dark.rasi"

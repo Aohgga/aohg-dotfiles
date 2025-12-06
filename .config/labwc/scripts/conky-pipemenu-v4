@@ -1,0 +1,172 @@
+#!/bin/bash
+#
+# Known problems:
+#
+#     entries containing a '&' will throw errors. Unknown -
+#     at this time if it's a openbox or script issue
+#
+# add to menus like openbox with a like this:
+# <menu execute="script-name /path/to/files/" id="script-name" label="menu name"/>
+#
+# To Do List:
+#	add reset option to conf menu
+#
+# file manager
+fm='thunar'
+# editor
+ed='nvim'
+
+pdf='llpp'
+#
+# Do not edit lines passed this point unless you know what you are doing
+#
+#locking path
+case "$1" in
+*/)
+  declare -r path=$1
+  ;;
+*)
+  declare -r path=$1/
+  ;;
+esac
+# making for loop ignore spaces
+IFS=$(echo -en "\n\b")
+# functions
+id_number=0
+function menu_id() { ((id_number++)); }
+function mcall() {
+  menu_id
+  local label="$1"
+  # sanatizing name
+  label=("${label//</&lt;}")
+  label=("${label//&/&amp;}")
+  label=("${label//>/&gt;}")
+  label=("${label//\"/&quot;}")
+  label=("${label//\'/&apos;}")
+  label=("${label//_/__}")
+  echo '<menu id="Rom_menu_id_'$id_number'" label="'$label'">'
+}
+function mend() { echo '</menu>'; }
+function icall() {
+  local label="$1"
+  # sanatizing name
+  label=("${label//</&lt;}")
+  label=("${label//&/&amp;}")
+  label=("${label//>/&gt;}")
+  label=("${label//\"/&quot;}")
+  label=("${label//\'/&apos;}")
+  label=("${label//_/__}")
+  echo '<item label="'$label'"><action name="Execute"><command>'
+}
+function iend() { echo '</command></action></item>'; }
+function separator() {
+  if [ -z $1 ]; then
+    echo '<separator/>'
+  else
+    local label="$1"
+    # sanatizing name
+    label=("${label//</&lt;}")
+    label=("${label//&/&amp;}")
+    label=("${label//>/&gt;}")
+    label=("${label//\"/&quot;}")
+    label=("${label//\'/&apos;}")
+    label=("${label//_/__}")
+    echo '<separator label="'$label'"/>'
+  fi
+}
+function file_logic() {
+  if [[ "$1" == *.conf ]]; then
+    mcall $1
+    icall "Start"
+    echo conky -c \"$path$2$1\"
+    iend
+    icall "Kill"
+    echo pkill -xf \'conky -c \"$path$2$1\"\'
+    iend
+    icall "Edit"
+    echo $ed \"$path$2$1\"
+    iend
+    mend
+  elif [[ "$1" == *.lua ]]; then
+    icall $1
+    echo $ed \"$path$2$1\"
+    iend
+  elif [[ "$1" == *.pdf ]]; then
+    icall $1
+    echo $pdf \"$path$2$1\"
+    iend
+  else
+    icall $1
+    echo $fm \"$path$2\"
+    iend
+  fi
+}
+function item_logic() {
+  if [ $1 == */ ]; then
+    list_logic $1 $2
+  else
+    file_logic $1 $2
+  fi
+}
+function list_logic() {
+  #path management
+  if [ $# = 2 ]; then
+    local path_plus=$2
+    case "$path_plus" in
+    */)
+      local -r path_plus=$path_plus$1
+      ;;
+    *)
+      local -r path_plus=$path_plus/$1
+      ;;
+    esac
+  else
+    local path_plus=$1
+    case "$path_plus" in
+    */)
+      local -r path_plus=$path_plus
+      ;;
+    *)
+      local -r path_plus=$path_plus/
+      ;;
+    esac
+  fi
+  #folders
+  local list_folders=$(ls -Q1F $path$path_plus | grep -F '/' | awk -F'"' '{print $2}' | awk -F'"' '{print $1}')
+  local list_folder
+  for list_folder in $list_folders; do
+    mcall $list_folder
+    list_logic $list_folder $path_plus
+    mend
+  done
+  #items
+  local list_items=$(ls -Q1F $path$path_plus | grep -Fv '/' | awk -F'"' '{print $2}' | awk -F'"' '{print $1}')
+  for list_item in $list_items; do
+    item_logic $list_item $path_plus
+  done
+}
+# start of menu
+echo "<openbox_pipe_menu>"
+#link to path
+icall "打开文件夹"
+echo $fm $path
+iend
+#pulling sub folder list
+#echo '<separator label="Grouped Configs"/>'
+declare -r local list_group=$(ls -Q1F $path | grep -F '/' | awk -F'"' '{print $2}' | awk -F'"' '{print $1}')
+for folder in $list_group; do
+  mcall $folder
+  list_logic $folder
+  mend
+  #done for pulling folder list
+done
+#echo '<separator label="Single Configs"/>'
+#pulling roms list from main folders
+declare -r local list_single=$(ls -Q1F $path | grep -Fv '/' | awk -F'"' '{print $2}' | awk -F'"' '{print $1}')
+for file in $list_single; do
+  item_logic $file
+  #done for pulling roms list
+done
+#end of pipemenu
+echo "</openbox_pipe_menu>"
+exit

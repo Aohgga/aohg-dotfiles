@@ -1,0 +1,130 @@
+[config]
+
+#[templates.alacritty]
+#input_path = '~/.config/matugen/templates/alacritty.toml'
+#output_path = '~/.config/alacritty/colors.toml'
+
+[templates.btop]
+input_path = '~/.config/matugen/templates/btop.theme'
+output_path = '~/.config/btop/themes/matugen.theme'
+post_hook = 'killall -SIGUSR1 btop && killall -SIGUSR2 btop'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/cava-colors.ini'
+output_path = '~/.config/cava/themes/matugen'
+post_hook = "pkill -USR1 cava"
+
+[templates.color-scheme]
+input_path = '~/.config/matugen/templates/Matugen.colors'
+output_path = '~/.local/share/color-schemes/Matugen.colors'
+
+[templates.fcitx5]
+input_path = "~/.config/matugen/templates/fcitx5-gboard.conf"
+output_path = "~/.local/share/fcitx5/themes/matugen-gboard/theme.conf"
+
+[templates.foot]
+input_path = '~/.config/matugen/templates/foot'
+output_path = '~/.config/foot/themes/matugen'
+
+#[templates.ghostty]
+#input_path = '~/.config/matugen/templates/ghostty'
+#output_path = '~/.config/ghostty/themes/Matugen'
+#post_hook = 'pkill -SIGUSR2 ghostty'
+
+[templates.gtk3]
+input_path = '~/.config/matugen/templates/gtk-colors.css'
+output_path = '~/.config/gtk-3.0/colors.css'
+post_hook = 'gsettings set org.gnome.desktop.interface icon-theme Papirus-{{mode}}; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}};'
+
+[templates.gtk4]
+input_path = '~/.config/matugen/templates/gtk-colors.css'
+output_path = '~/.config/gtk-4.0/colors.css'
+
+#[templates.kitty]
+#input_path = '~/.config/matugen/templates/kitty.conf'
+#output_path = '~/.config/kitty/themes/matugen.conf'
+#post_hook = 'kitty +kitten themes --reload-in=all matugen'
+
+[templates.labwc]
+input_path = '~/.config/matugen/templates/themerc'
+output_path = '~/.config/labwc/themerc-override'
+post_hook = 'labwc -r'
+
+[templates.mako]
+input_path = '~/.config/matugen/templates/mako'
+output_path = '~/.config/mako/mako-colors'
+post_hook = 'makoctl reload'
+
+#[templates.mango]
+#input_path = '~/.config/matugen/templates/mango.conf'
+#output_path = '~/.config/mango/appearance.conf'
+#post_hook = 'mmsg -d reload_config'
+
+#[templates.niri]
+#input_path = '~/.config/matugen/templates/niri-colors.kdl'
+#output_path = '~/.config/niri/colors.kdl'
+
+[templates.pywalfox]
+input_path = '~/.config/matugen/templates/pywalfox-colors.json'
+output_path = '~/.cache/wal/colors.json'
+post_hook = 'pywalfox update'
+
+[templates.qt5ct]
+input_path = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.config/qt5ct/colors/matugen.conf'
+
+[templates.qt6ct]
+input_path = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.config/qt6ct/colors/matugen.conf'
+
+#[templates.river]
+#input_path = '~/.config/matugen/templates/river.sh'
+#output_path = '~/.config/river/color'
+#post_hook = 'riverctl spawn ~/.config/river/init'
+
+[templates.rofi]
+input_path = '~/.config/matugen/templates/rofi-colors.rasi'
+output_path = '~/.local/share/rofi/themes/colors.rasi'
+
+[templates.screenshot]
+input_path = '~/.config/matugen/templates/screenshot'
+output_path = '~/.config/scripts/screenshot'
+
+[templates.swayimg]
+input_path = '~/.config/matugen/templates/swayimg'
+output_path = '~/.config/swayimg/config'
+
+[templates.swaylock]
+input_path = '~/.config/matugen/templates/swaylock'
+output_path = '~/.swaylock/config'
+
+[templates.wallpaper]
+input_path = '~/.config/matugen/templates/wallpaper'
+output_path = '~/.config/scripts/wallpaper'
+
+[templates.waybar-labwc]
+input_path = '~/.config/matugen/templates/colors.css'
+output_path = '~/.config/labwc/waybar/colors.css'
+post_hook = 'pkill -SIGUSR2 waybar'
+
+#[templates.waybar-river]
+#input_path = '~/.config/matugen/templates/colors.css'
+#output_path = '~/.config/river/waybar/colors.css'
+#post_hook = 'pkill -SIGUSR2 waybar'
+
+#[templates.waybar-mango]
+#input_path = '~/.config/matugen/templates/colors.css'
+#output_path = '~/.config/mango/waybar/colors.css'
+
+[templates.wob]
+input_path = '~/.config/matugen/templates/wob.ini'
+output_path = '~/.config/wob/wob.ini'
+post_hook = '~/.config/scripts/wobd'
+
+[templates.yazi]
+input_path = '~/.config/matugen/templates/yazi-theme.toml'
+output_path = '~/.config/yazi/theme.toml'
+
+[templates.zathura]
+input_path = '~/.config/matugen/templates/zathura-colors'
+output_path = '~/.config/zathura/zathurarc'

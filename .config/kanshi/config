@@ -1,0 +1,18 @@
+output "ASUSTek COMPUTER INC XG27UCG SBLMQS067078" {
+    mode 3840x2160@119.88
+    position 1706,0
+    scale 1.5
+    alias $ROG
+}
+
+output "BOE 0x0B40 Unknown" {
+    mode 2560x1440@165.00
+    position 0,0
+    scale 1.5
+    alias $NATIVE
+}
+
+profile first {
+    output $ROG enable
+    output $NATIVE enable
+}

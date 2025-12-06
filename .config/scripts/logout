@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rofi -show p -modi p:'~/.config/rofi/rofi-power-menu --symbols-font "Symbols Nerd Font Mono"' -theme-str 'window {width: 5.4em;} listview {lines: 6;}'

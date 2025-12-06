@@ -1,0 +1,263 @@
+{
+  "layer": "top",
+  "output": [
+    "eDP-1",
+    "eDP-2",
+    "DP-1",
+    "HDMI-A-1"
+  ],
+  "position": "bottom",
+  "modules-left": [
+    "ext/workspaces",
+    "group/apps",
+    "wlr/taskbar"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "power-profiles-daemon",
+    "idle_inhibitor",
+    "bluetooth",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "clock",
+  ],
+  "reload_style_on_change": true,
+  "height": 36,
+  "margin": "0",
+  "dwl/window": {
+    "format": "{title}",
+    "max-length": 50
+  },
+  "ext/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "工作区 1": "1",
+      "工作区 2": "2",
+      "工作区 3": "3",
+      "工作区 4": "4"
+    },
+    "sort-by-number": true,
+    "on-click": "activate",
+  },
+  "group/apps": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/app1",
+      "custom/app2",
+      "custom/app3"
+    ]
+  },
+  "custom/app1": {
+    "format": "",
+    "on-click": "thunar",
+    "tooltip": true,
+    "tooltip-format": "Thunar"
+  },
+  "custom/app2": {
+    "format": "",
+    "on-click": "foot",
+    "tooltip": true,
+    "tooltip-format": "Foot terminal"
+  },
+  "custom/app3": {
+    "format": "",
+    "on-click": "librewolf",
+    "tooltip": true,
+    "tooltip-format": "Librewolf"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}{title:.30}",
+    "icon-size": 18,
+    "icon-theme": "Numix-Circle",
+    "tooltip-format": "{name}",
+    "on-click": "minimize-raise",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "Alacritty"
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "rewrite": {
+      "Firefox Web Browser": "Firefox",
+      "Foot Server": "Terminal"
+    }
+  },
+  "cffi/lyrics": {
+    "module_path": "/home/aohg/.config/waybar/cffi/libwaybar_cffi_lyrics.so",
+    "cache_dir": "/home/aohg/.cache/libwaybar_cffi_lyrics",
+    "id": "waybar_cffi_lyrics",
+    "class": "lyrics-mpv",
+    "rotate": 90,
+    "format": "{lyrics}",
+    "actions": {
+      "on-click": "toggle",
+      "on-click-right": "loop",
+      "on-click-middle": "shuffle",
+      "on-scroll-up": "prev",
+      "on-scroll-down": "next"
+    },
+    "max_length": 1000,
+    "lyrics-title-max-length": 100,
+    "lyrics-max-duration": 300,
+    "interval": 1,
+    "dest": "mpd"
+  },
+  "mpris": {
+    "format": " {status_icon} [{title}]-{artist}",
+    "status-icons": {
+      "playing": "",
+      "paused": "",
+      "stopped": ""
+    },
+    "ignored-players": [
+      "firefox"
+    ]
+  },
+  "network": {
+    "format-wifi": "<span color='#89b4fa'>{icon}</span>{signalStrength}%",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{essid}"
+  },
+  "bluetooth": {
+    "on-click": "foot -e bluetui",
+    "tooltip": true,
+    "format": "\udb80\udcb1{num_connections}",
+    "format-connected": "\udb80\udcb1{num_connections}",
+    "format-connected-battery": "\udb80\udcb1{num_connections}",
+    "format-off": "\udb80\udcb2",
+    //"format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+    "tooltip-format": "[{controller_alias}] [{controller_address}]\n[{num_connections}]个设备已连接",
+    "tooltip-format-connected": "[{controller_alias}] [{controller_address}]\n\n[{num_connections}]个设备已连接\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "[{device_alias}] [{device_address}]",
+    "tooltip-format-enumerate-connected-battery": "[{device_alias}] [{device_address}] [{icon} {device_battery_percentage}%]",
+    "format-icons": [
+      "󰤾",
+      "󰤿",
+      "󰥀",
+      "󰥁",
+      "󰥂",
+      "󰥃",
+      "󰥄",
+      "󰥅",
+      "󰥆"
+    ]
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "pulseaudio": {
+    "scroll-step": 1, // %, can be a float
+    "tooltip": true,
+    "format": "{icon}{volume}%",
+    "format-bluetooth": "{icon}{volume}%",
+    "format-bluetooth-muted": " {volume}%",
+    "format-muted": " {volume}%",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol-qt"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "tooltip": false,
+    "format": "{icon}{percent}%",
+    "format-icons": [
+      "\uDB80\uDCDE",
+      "\uDB80\uDCDD",
+      "\uDB80\uDCDF",
+      "\uDB80\uDCE0"
+    ]
+  },
+  "battery": {
+    "interval": 60,
+    "tooltip-format": "功耗[{power}]W\n状态[{timeTo}]",
+    "tooltip": true,
+    "format": "{icon}{capacity}%",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "tooltip": false,
+    "tooltip-format-activated": "抑制中",
+    "tooltip-format-deactivated": "未抑制",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "start-activated": true
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8
+  },
+  "clock": {
+    "timezone": "Asia/Shanghai",
+    "tooltip": true,
+    "format": "{:%Y-%m-%d %H:%M}",
+    "format-alt": "{:%Y-%m-%d}",
+    "justify": "center",
+    "tooltip-format": "<span size='12pt' font='Maple Mono NF CN'>{calendar}</span>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>第{}周</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    }
+  }
+}

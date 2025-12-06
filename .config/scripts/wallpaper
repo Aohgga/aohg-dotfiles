@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if pgrep "wlrsetroot" >/dev/null; then
+  pkill "wlrsetroot"
+fi
+
+wlrsetroot -bitmap Pictures/bitmap-walls/patterns/dots_diag.xbm -bg "#17130b" -fg "#f0bf6d" &
+
+disown

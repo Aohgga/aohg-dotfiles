@@ -1,0 +1,50 @@
+
+xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
+
+# wallpaper
+swww-daemon &
+
+# Configure output directives such as mode, position, scale and transform.
+kanshi >/dev/null 2>&1 &
+
+echo "Xft.dpi: 192" | xrdb -merge &
+
+# bluetooth
+nm-applet &
+
+# network
+blueman-applet >/dev/null 2>&1 &
+
+# ime input
+fcitx5 --replace -d &
+
+flclash &
+
+# wob
+~/.config/scripts/wobd >/dev/null 2>&1 &
+
+# clipboard
+wl-paste --type text --watch cliphist store &
+wl-paste --type image --watch cliphist store &
+
+# Permission authentication
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Waybar
+waybar -c ~/.config/labwc/waybar/config.jsonc -s ~/.config/labwc/waybar/style.css >/dev/null 2>&1 &
+
+# Notifcations
+mako >/dev/null 2>&1 &
+
+# Lock screen after 5 minutes; turn off display after another 5 minutes.
+#
+# Note that in the context of idle system power management, it is *NOT* a good
+# idea to turn off displays by 'disabling outputs' for example by
+# `wlr-randr --output <whatever> --off` because this re-arranges windows
+# (since a837fef). Instead use a wlr-output-power-management client such as
+# https://git.sr.ht/~leon_plickat/wlopm
+swayidle -w \
+	timeout 300 'swaylock -f -c 000000' \
+	timeout 600 'wlopm --off \*' \
+	resume 'wlopm --on \*' \
+	before-sleep 'swaylock -f -c 000000' >/dev/null 2>&1 &

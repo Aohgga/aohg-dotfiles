@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $1 == f ]]; then
+  (grim -g "$(slurp -o -r -w 2 -c '#f0bf6d')" -t ppm - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date +"%Y%m%d-%H:%M:%S").png)
+else
+  (grim -g "$(slurp -d -w 2 -c '#f0bf6d')" -t ppm - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date +"%Y%m%d-%H:%M:%S").png)
+fi
