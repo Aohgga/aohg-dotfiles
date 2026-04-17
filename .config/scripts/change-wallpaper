@@ -1,13 +1,30 @@
-#!/bin/bash
+#!/bin/dash
 
-COLOR_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme)
+case "$1" in
+*dark*)
+  COLOR=dark
+  echo $COLOR >~/.config/scripts/colors/status/current_color
+  gsettings set org.gnome.desktop.interface color-scheme \'prefer-dark\'
+  ;;
+*)
+  COLOR=light
+  echo $COLOR >~/.config/scripts/colors/status/current_color
+  gsettings set org.gnome.desktop.interface color-scheme \'prefer-light\'
+  ;;
+esac
 
-if [[ $COLOR_SCHEME == "'prefer-dark'" ]]; then
-  matugen -m dark image $1
-fi
+MODE=$(head -n 1 ~/.config/scripts/colors/status/status)
+THEME=$(tail -n 1 ~/.config/scripts/colors/status/status)
+TYPE=$(cat ~/.config/scripts/colors/status/type)
 
-if [[ $COLOR_SCHEME == "'prefer-light'" ]]; then
-  matugen -m light image $1
-fi
+case "$MODE" in
+custom)
+  ~/.config/scripts/colors/color-scheme --$THEME
+  ;;
+matugen)
+  matugen -t $TYPE -m $COLOR image $1
+  ;;
+*) ;;
+esac
 
 cp $1 ~/.swaylock/wallpaper
