@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WOBSOCK=/tmp/xobpipe
+
+if pgrep -f "tail -f $WOBSOCK" >/dev/null; then
+  pkill -f "tail -f $WOBSOCK"
+fi
+
+rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | xob
