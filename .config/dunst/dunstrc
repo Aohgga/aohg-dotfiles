@@ -1,0 +1,49 @@
+[global]
+    monitor = 0
+    follow = none
+    width = 400
+    height = (0, 300)
+    origin = top-right
+    offset = (5, 45)
+    scale = 0
+    notification_limit = 20
+    icon_corner_radius = 6
+    icon_corners = all
+    indicate_hidden = yes
+    transparency = 0
+    separator_height = 2
+    padding = 5
+    horizontal_padding = 5
+    text_icon_padding = 10
+    frame_width = 1
+    frame_color = "#ffffff80"
+    gap_size = 5
+    separator_color = frame
+    sort = yes
+    font = Noto Sans CJK SC 12
+    line_height = 0
+    alignment = left
+    vertical_alignment = center
+    icon_position = left
+    min_icon_size = 64
+    max_icon_size = 128
+    corner_radius = 6
+
+[urgency_low]
+    background = "#26273d99"
+    foreground = "#ffffff"
+    frame_color = "#31748f80"
+    timeout = 3
+
+[urgency_normal]
+    background = "#362e3c99"
+    foreground = "#ffffff"
+    timeout = 6
+    override_pause_level = 30
+
+[urgency_critical]
+    background = "#35263d80"
+    foreground = "#ffffff"
+    frame_color = "#eb6f92"
+    timeout = 9
+    override_pause_level = 60
