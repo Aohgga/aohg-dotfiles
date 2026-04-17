@@ -1,0 +1,11 @@
+#!/bin/sh
+
+PREFIX='󰁹'
+
+get_battery() {
+  bat_status=$(cat /sys/class/power_supply/BAT0/status)
+  bat_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+  echo "$PREFIX$bat_capacity%"
+}
+
+get_battery

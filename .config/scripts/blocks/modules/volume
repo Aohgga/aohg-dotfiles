@@ -1,0 +1,33 @@
+#!/bin/sh
+
+case "$1" in
+sink)
+  TARGET=@DEFAULT_AUDIO_SINK@
+  ;;
+source)
+  TARGET=@DEFAULT_AUDIO_SOURCE@
+  ;;
+esac
+
+GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
+GETVOL=$(wpctl get-volume $TARGET | sed 's/[^0-9]//g; s/^0//')
+GETEAR=$(wpctl status | grep -q bluez && echo EAR)
+
+ICON=""
+ICON_MUTED=""
+EAR=""
+EAR_MUTED="󰟎"
+
+if [[ $GETMUTE = MUTED ]]; then
+  if [[ $GETEAR = EAR ]]; then
+    echo "$EAR_MUTED$GETVOL%"
+  else
+    echo "$ICON_MUTED$GETVOL%"
+  fi
+else
+  if [[ $GETEAR = EAR ]]; then
+    echo "$EAR$GETVOL%"
+  else
+    echo "$ICON$GETVOL%"
+  fi
+fi

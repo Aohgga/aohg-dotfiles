@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# INIT
+printf "$$" >~/.cache/blocks
+sec=0
+
+MODPATH=~/.config/scripts/blocks/modules
+
+update_volume() {
+  volume=$($MODPATH/volume sink)
+}
+
+update_backlight() {
+  backlight=$($MODPATH/backlight)
+}
+
+update_time() {
+  time=$($MODPATH/date)
+}
+
+update_bat() {
+  bat=$($MODPATH/battery)
+}
+
+update_backlight
+update_volume
+
+display() {
+  local separator=" | "
+  local blocks="$separator"
+  xsetroot -name " $volume$separator$backlight$separator$bat$separator$time "
+}
+
+trap "update_volume;display" "RTMIN"
+trap "update_backlight;display" "RTMIN+1"
+
+while true; do
+  sleep 1 &
+  wait && {
+    [ $((sec % 5)) -eq 0 ] && update_volume
+    [ $((sec % 1)) -eq 0 ] && update_time
+    [ $((sec % 5)) -eq 0 ] && update_bat
+    [ $((sec % 5)) -eq 0 ] && display
+  }
+done

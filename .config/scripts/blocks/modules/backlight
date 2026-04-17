@@ -1,0 +1,6 @@
+#!/bin/sh
+
+now_bright=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
+max_bright=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+backlight="󰖨$(expr $now_bright \* 100 / $max_bright)%"
+echo $backlight
