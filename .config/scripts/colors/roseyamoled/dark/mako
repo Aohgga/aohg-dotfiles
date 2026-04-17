@@ -1,0 +1,9 @@
+background-color=#00000099
+text-color=#ffe0eb
+border-color=#ff8cb3
+[urgency=low]
+border-color=#ffb3cc
+[urgency=normal]
+border-color=#ff8cb3
+[urgency=high]
+border-color=#ff99b8

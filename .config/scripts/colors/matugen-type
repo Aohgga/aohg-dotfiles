@@ -1,0 +1,56 @@
+#!/bin/dash
+
+echo "内容"
+echo "表达"
+echo "忠诚"
+echo "水果沙拉"
+echo "单色"
+echo "中性"
+echo "彩虹"
+echo "色调点"
+echo "鲜艳"
+echo "退出"
+
+COLOR=$(cat ~/.config/scripts/colors/status/current_color)
+
+case "$1" in
+内容)
+  TYPE=scheme-content
+  ;;
+表达)
+  TYPE=scheme-expressive
+  ;;
+忠诚)
+  TYPE=scheme-fidelity
+  ;;
+水果沙拉)
+  TYPE=scheme-fruit-salad
+  ;;
+单色)
+  TYPE=scheme-monochrome
+  ;;
+中性)
+  TYPE=scheme-neutral
+  ;;
+彩虹)
+  TYPE=scheme-rainbow
+  ;;
+色调点)
+  TYPE=scheme-tonal-spot
+  ;;
+鲜艳)
+  TYPE=scheme-vibrant
+  ;;
+esac
+
+case "$1" in
+"") ;;
+退出)
+  exit 0
+  ;;
+*)
+  echo "$TYPE" >~/.config/scripts/colors/status/type
+  echo "matugen\nmatugen" >~/.config/scripts/colors/status/status
+  matugen -t $TYPE -m $COLOR image .swaylock/wallpaper
+  ;;
+esac

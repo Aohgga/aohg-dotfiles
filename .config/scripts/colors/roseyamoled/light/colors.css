@@ -1,0 +1,14 @@
+@define-color Primary #e57399;
+@define-color OnPrimary #ffffff;
+@define-color Secondary #ff99b8;
+@define-color OnSecondary #ffffff;
+@define-color Tertiary #ffb3cc;
+@define-color OnTertiary #ffffff;
+@define-color Error #ff99b8;
+@define-color OnError #ffffff;
+@define-color Surface #fff5fa;
+@define-color OnSurface #2c1822;
+@define-color SurfaceVariant #f5d6e3;
+@define-color OnSurfaceVariant #e57399;
+@define-color Outline #b38099;
+@define-color Shadow #f0d0e0;

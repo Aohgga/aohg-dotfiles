@@ -1,0 +1,46 @@
+#!/bin/dash
+
+COLOR=$(cat ~/.config/scripts/colors/status/current_color)
+TYPE=$(cat ~/.config/scripts/colors/status/type)
+
+case $1 in
+--everforest)
+  THEME=everforest
+  ;;
+--rosepine)
+  THEME=rosepine
+  ;;
+--roseyamoled)
+  THEME=roseyamoled
+  ;;
+--matugen)
+  THEME=matugen
+  ;;
+esac
+
+case "$THEME" in
+matugen)
+  matugen -t $TYPE -m $COLOR image .swaylock/wallpaper
+  echo -e "matugen\n$THEME" >~/.config/scripts/colors/status/status &
+  echo "initial-color-theme=dark" >~/.config/foot/themes/mode &
+  ;;
+*)
+  cp ~/.config/scripts/colors/$THEME/$COLOR/btop.theme ~/.config/btop/themes/color.theme &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/gtk3.css ~/.config/gtk-3.0/colors.css &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/gtk4.css ~/.config/gtk-4.0/colors.css &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/kcolor.colors ~/.local/share/color-schemes/color.colors &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/mako ~/.config/mako/colors &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/mango.conf ~/.config/mango/config/color.conf &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/qt.conf ~/.config/qt5ct/colors/color.conf &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/qt.conf ~/.config/qt6ct/colors/color.conf &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/rofi.rasi ~/.local/share/rofi/themes/colors.rasi &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/colors.css ~/.config/$XDG_CURRENT_DESKTOP/waybar/colors.css &
+  cp ~/.config/scripts/colors/$THEME/$COLOR/yazi-theme.toml ~/.config/yazi/flavors/color.yazi/flavor.toml &
+  cp ~/.config/scripts/colors/$THEME/both/foot ~/.config/foot/themes/color &
+  wait
+  echo -e "custom\n$THEME" >~/.config/scripts/colors/status/status &
+  echo "initial-color-theme=$COLOR" >~/.config/foot/themes/mode &
+  makoctl reload &
+  mmsg -d reload_config
+  ;;
+esac

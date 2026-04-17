@@ -1,0 +1,17 @@
+#!/bin/dash
+
+echo "everforest"
+echo "rosepine"
+echo "roseyamoled"
+echo "matugen"
+echo "退出"
+
+case "$1" in
+"") ;;
+退出)
+  exit 0
+  ;;
+*)
+  ~/.config/scripts/colors/color-scheme --$1
+  ;;
+esac

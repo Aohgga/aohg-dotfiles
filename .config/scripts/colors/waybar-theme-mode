@@ -1,0 +1,11 @@
+#!/bin/bash
+
+MODE=$(cat ~/.config/scripts/colors/status/mode)
+THEME=$(cat ~/.config/scripts/colors/status/theme)
+TYPE=$(cat ~/.config/scripts/colors/status/type)
+
+if [[ $MODE == custom ]]; then
+  echo $THEME
+elif [[ $MODE == matugen ]]; then
+  echo $TYPE
+fi

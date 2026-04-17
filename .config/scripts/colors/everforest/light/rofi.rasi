@@ -1,0 +1,16 @@
+* {
+  Primary: #434F55;
+  OnPrimary: #D3C6AA;
+  Secondary: #232a2e;
+  OnSecondary: #D3C6AA;
+  Tertiary: #333c43;
+  OnTertiary: #9DA9A0;
+  Error: #E66868;
+  OnError: #9DA9A0;
+  Surface: #9DA9A099;
+  OnSurface: #232A2E;
+  SurfaceVariant: #BEC5B2;
+  OnSurfaceVariant: #333C43;
+  Outline: #232A2E;
+  Shadow: #ECF5ED;
+}
