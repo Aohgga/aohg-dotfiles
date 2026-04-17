@@ -1,16 +1,13 @@
-#!/bin/bash
+#!/bin/dash
 
-case $1 in
-up)
-  brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' >$WOBSOCK
+case "$XDG_SESSION_TYPE" in
+wayland)
+  WOBSOCK=$XDG_RUNTIME_DIR/wob.sock
   ;;
-down)
-  brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' >$WOBSOCK
-  ;;
-slowup)
-  brightnessctl set +1% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' >$WOBSOCK
-  ;;
-slowdown)
-  brightnessctl set 1%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' >$WOBSOCK
+x11)
+  WOBSOCK=/tmp/xobpipe
   ;;
 esac
+
+brightnessctl set $1 | sed -En 's/.*\(([0-9]+)%\).*/\1/p' >$WOBSOCK
+kill -35 "$(cat ~/.cache/blocks)"
