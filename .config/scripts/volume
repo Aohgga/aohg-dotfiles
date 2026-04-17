@@ -1,19 +1,42 @@
 #!/bin/bash
 
-case $1 in
-mute)
-  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 >$WOBSOCK) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' >$WOBSOCK
+case "$XDG_SESSION_TYPE" in
+wayland)
+  WOBSOCK=$XDG_RUNTIME_DIR/wob.sock
   ;;
-up)
-  (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 >$WOBSOCK) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' >$WOBSOCK)
-  ;;
-down)
-  (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 >$WOBSOCK) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' >$WOBSOCK)
-  ;;
-slowup)
-  (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 >$WOBSOCK) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' >$WOBSOCK)
-  ;;
-slowdown)
-  (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 >$WOBSOCK) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' >$WOBSOCK)
+x11)
+  WOBSOCK=/tmp/xobpipe
   ;;
 esac
+
+case "$1" in
+sink)
+  TARGET=@DEFAULT_AUDIO_SINK@
+  ;;
+source)
+  TARGET=@DEFAULT_AUDIO_SOURCE@
+  ;;
+esac
+
+case "$2" in
+mute)
+  wpctl set-mute $TARGET toggle
+  GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
+  if [[ $GETMUTE = MUTED ]]; then
+    echo 0 >$WOBSOCK
+  else
+    wpctl get-volume $TARGET | sed 's/[^0-9]//g' >$WOBSOCK
+  fi
+  ;;
+*)
+  GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
+  if [[ $GETMUTE = MUTED ]]; then
+    echo 0 >$WOBSOCK
+  else
+    wpctl set-volume $TARGET $2
+    wpctl get-volume $TARGET | sed 's/[^0-9]//g' >$WOBSOCK
+  fi
+  ;;
+esac
+
+kill -34 "$(cat ~/.cache/blocks)"
