@@ -11,32 +11,51 @@ esac
 
 case "$1" in
 sink)
-  TARGET=@DEFAULT_AUDIO_SINK@
+  target="@DEFAULT_AUDIO_SINK@"
+  target_pip=-34
   ;;
 source)
-  TARGET=@DEFAULT_AUDIO_SOURCE@
+  target="@DEFAULT_AUDIO_SOURCE@"
+  target_pip=-36
   ;;
 esac
+
+get_current_volume() {
+  wpctl get-volume "$target" | sed 's/[^0-9]//g'
+}
+
+toggle_mute() {
+  wpctl set-mute "$target" toggle
+  if wpctl get-volume "$target" | grep -q MUTED; then
+    output_volume 0
+  else
+    output_volume "$(get_current_volume)"
+  fi
+}
+
+set_volume() {
+  local volume_level=$1
+  if ! wpctl get-volume "$target" | grep -q MUTED; then
+    wpctl set-volume "$target" "$volume_level"
+    output_volume "$(get_current_volume)"
+  else
+    output_volume 0
+  fi
+}
+
+output_volume() {
+  local volume_val=$1
+  echo "$volume_val" >"$WOBSOCK"
+  if [[ -f ~/.cache/blocks ]]; then
+    kill "$target_pip" "$(cat ~/.cache/blocks)"
+  fi
+}
 
 case "$2" in
 mute)
-  wpctl set-mute $TARGET toggle
-  GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
-  if [[ $GETMUTE = MUTED ]]; then
-    echo 0 >$WOBSOCK
-  else
-    wpctl get-volume $TARGET | sed 's/[^0-9]//g' >$WOBSOCK
-  fi
+  toggle_mute
   ;;
 *)
-  GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
-  if [[ $GETMUTE = MUTED ]]; then
-    echo 0 >$WOBSOCK
-  else
-    wpctl set-volume $TARGET $2
-    wpctl get-volume $TARGET | sed 's/[^0-9]//g' >$WOBSOCK
-  fi
+  set_volume "$2"
   ;;
 esac
-
-kill -34 "$(cat ~/.cache/blocks)"
