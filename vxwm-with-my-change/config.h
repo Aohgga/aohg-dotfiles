@@ -4,12 +4,12 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Maple Mono NL NFPropo CN:size=12" };
-static const char dmenufont[]       = "Maple Mono NL NF CN:size=12";
+static const char *fonts[]          = { "Maple Mono NL NFPropo CN:size=10" };
+static const char dmenufont[]       = "Maple Mono NL NF CN:size=10";
 
 static unsigned int baralpha        = 0x99;
 static unsigned int borderalpha     = 0x99;
@@ -129,6 +129,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,      spawn,          SHCMD("kitty -e bluetui") },
 	{ MODKEY,                       XK_p,      spawn,          SHCMD("kitty -e wiremix") },
 	{ MODKEY,                       XK_m,      spawn,          SHCMD("kitty -e musicfox") },
+	{ MODKEY,                       XK_n,      spawn,          SHCMD("xprop >what.txt") },
 	{ MODKEY,                       XK_v,      spawn,          SHCMD("clipmenu") },
 	{ MODKEY,                       XK_semicolon,spawn,        SHCMD("rofimoji --max-recent 0 --no-frecency") },
 	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
@@ -163,6 +164,11 @@ static const Key keys[] = {
   { 0,                            XF86XK_MonBrightnessDown,spawn, SHCMD("~/.config/scripts/bright 5%-") },
   { 0|ShiftMask,                  XF86XK_MonBrightnessUp,  spawn, SHCMD("~/.config/scripts/bright 1%+") },
   { 0|ShiftMask,                  XF86XK_MonBrightnessDown,spawn, SHCMD("~/.config/scripts/bright 1%-") },
+  { 0|ControlMask,                XK_F3,                   spawn, SHCMD("~/.config/scripts/volume source 5%+") },
+  { 0|ControlMask,                XK_F2,                   spawn, SHCMD("~/.config/scripts/volume source 5%-") },
+  { 0|ControlMask|ShiftMask,      XK_F3,                   spawn, SHCMD("~/.config/scripts/volume source 1%+") },
+  { 0|ControlMask|ShiftMask,      XK_F2,                   spawn, SHCMD("~/.config/scripts/volume source 1%-") },
+  { 0|ControlMask,                XK_F1,                   spawn, SHCMD("~/.config/scripts/volume source mute") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
