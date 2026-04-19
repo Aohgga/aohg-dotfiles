@@ -1,0 +1,26 @@
+#!/bin/bash
+
+OFF="󰂲"
+ON="󰂯"
+CONNEDTED="󰂱"
+
+get_bluetooth() {
+  count=0
+  devices=$(bluetoothctl devices | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')
+  for mac in $devices; do
+    if bluetoothctl info "$mac" 2>/dev/null | grep -q "Connected: yes"; then
+      ((count++))
+    fi
+  done
+  if bluetoothctl show | grep -q "Powered: yes"; then
+    if [[ "$count" == 0 ]]; then
+      echo "${ON}${count}"
+    else
+      echo "${CONNEDTED}${count}"
+    fi
+  else
+    echo "$OFF"
+  fi
+}
+
+get_bluetooth

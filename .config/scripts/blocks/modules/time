@@ -1,0 +1,9 @@
+#!/bin/sh
+
+PREFIX=''
+
+get_time() {
+  echo "$PREFIX$(date '+%H:%M:%S')"
+}
+
+get_time

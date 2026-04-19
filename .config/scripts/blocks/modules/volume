@@ -1,33 +1,48 @@
 #!/bin/sh
 
+speaker=""
+speaker_muted=""
+earphone="󱡏"
+earphone_muted="󱡐"
+microphone=""
+microphone_muted=""
+
 case "$1" in
 sink)
-  TARGET=@DEFAULT_AUDIO_SINK@
+  target="@DEFAULT_AUDIO_SINK@"
   ;;
 source)
-  TARGET=@DEFAULT_AUDIO_SOURCE@
+  target="@DEFAULT_AUDIO_SOURCE@"
   ;;
 esac
 
-GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
-GETVOL=$(wpctl get-volume $TARGET | sed 's/[^0-9]//g; s/^0//')
-GETEAR=$(wpctl status | grep -q bluez && echo EAR)
+get_volume() {
+  wpctl get-volume "$target"
+}
 
-ICON=""
-ICON_MUTED=""
-EAR=""
-EAR_MUTED="󰟎"
+volume=$(get_volume | sed 's/[^0-9]//g; s/^0//')
 
-if [[ $GETMUTE = MUTED ]]; then
-  if [[ $GETEAR = EAR ]]; then
-    echo "$EAR_MUTED$GETVOL%"
-  else
-    echo "$ICON_MUTED$GETVOL%"
-  fi
+if get_volume | grep -q MUTED; then
+  is_muted=true
 else
-  if [[ $GETEAR = EAR ]]; then
-    echo "$EAR$GETVOL%"
-  else
-    echo "$ICON$GETVOL%"
-  fi
+  is_muted=false
 fi
+
+if wpctl status | grep -q bluez_input; then
+  has_bluetooth=true
+else
+  has_bluetooth=false
+fi
+
+case "$1" in
+sink)
+  if $is_muted; then
+    $has_bluetooth && echo "$earphone_muted$volume%" || echo "$speaker_muted$volume%"
+  else
+    $has_bluetooth && echo "$earphone$volume%" || echo "$speaker$volume%"
+  fi
+  ;;
+source)
+  $is_muted && echo "$microphone_muted$volume%" || echo "$microphone$volume%"
+  ;;
+esac

@@ -1,21 +1,33 @@
 #!/bin/bash
 
 # INIT
-printf "$$" >~/.cache/blocks
+printf "$$" >$HOME/.cache/blocks
 sec=0
 
-MODPATH=~/.config/scripts/blocks/modules
+MODPATH=$HOME/.config/scripts/blocks/modules
 
-update_volume() {
-  volume=$($MODPATH/volume sink)
+update_speaker() {
+  speaker=$($MODPATH/volume sink)
+}
+
+update_microphone() {
+  microphone=$($MODPATH/volume source)
 }
 
 update_backlight() {
   backlight=$($MODPATH/backlight)
 }
 
+update_bluetooth() {
+  bluetooth=$($MODPATH/bluetooth)
+}
+
+update_date() {
+  date=$($MODPATH/date)
+}
+
 update_time() {
-  time=$($MODPATH/date)
+  time=$($MODPATH/time)
 }
 
 update_bat() {
@@ -23,21 +35,26 @@ update_bat() {
 }
 
 update_backlight
-update_volume
+update_speaker
+update_microphone
 
 display() {
-  local separator=" | "
-  local blocks="$separator"
-  xsetroot -name " $volume$separator$backlight$separator$bat$separator$time "
+  local sep=" | "
+  local spa=" "
+  local bar="$sep$bluetooth$sep$speaker$spa$microphone$sep$backlight$sep$bat$sep$date$spa$time$spa"
+  xsetroot -name "$bar" >/dev/null 2>&1
 }
 
-trap "update_volume;display" "RTMIN"
+trap "update_speaker;display" "RTMIN"
 trap "update_backlight;display" "RTMIN+1"
+trap "update_microphone;display" "RTMIN+2"
 
 while true; do
   sleep 1 &
   wait && {
-    [ $((sec % 5)) -eq 0 ] && update_volume
+    [ $((sec % 5)) -eq 0 ] && update_speaker
+    [ $((sec % 5)) -eq 0 ] && update_bluetooth
+    [ $((sec % 1)) -eq 0 ] && update_date
     [ $((sec % 1)) -eq 0 ] && update_time
     [ $((sec % 5)) -eq 0 ] && update_bat
     [ $((sec % 5)) -eq 0 ] && display
