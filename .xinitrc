@@ -22,7 +22,7 @@ export LANG=zh_CN.UTF-8
 # autostart
 [[ -f $HOME/.Xresources ]] && xrdb -merge -I$HOME $HOME/.Xresources
 xset r rate 300 50 &
-feh --bg-fill ~/.cache/wallpaper &
+xwallpaper --zoom $HOME/.cache/wallpaper &
 $HOME/.config/scripts/xobd &
 flameshot &
 clipmenud &
