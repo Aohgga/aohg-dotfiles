@@ -14,17 +14,18 @@ export XDG_SESSION_TYPE=x11
 
 export CM_LAUNCHER=rofi #clipmenud
 
-export XCURSOR_SIZE=24
-export XCURSOR_THEME=Qogir-Manjaro-Dark
+export XCURSOR_SIZE=32
+export XCURSOR_THEME=WhiteSur-cursors
 
 export LANG=zh_CN.UTF-8
 
 # autostart
+[[ -f $HOME/.Xresources ]] && xrdb -merge -I$HOME $HOME/.Xresources
 xset r rate 300 50 &
 feh --bg-fill ~/.cache/wallpaper &
-~/.config/scripts/xobd &
+$HOME/.config/scripts/xobd &
 flameshot &
 clipmenud &
 dunst &
-~/.config/scripts/blocks/blocks &
+$HOME/.config/scripts/blocks/blocks &
 exec vxwm
