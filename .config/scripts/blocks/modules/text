@@ -1,0 +1,5 @@
+#!/bin/sh
+
+text=$(cat $HOME/.cache/text)
+
+echo $text

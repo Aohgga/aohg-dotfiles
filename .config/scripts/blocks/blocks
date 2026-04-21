@@ -34,25 +34,41 @@ update_bat() {
   bat=$($MODPATH/battery)
 }
 
+update_powerprofile() {
+  profile=$($MODPATH/powerprofile)
+}
+
+update_text() {
+  text=$($MODPATH/text)
+}
+
 update_backlight
 update_speaker
 update_microphone
+update_powerprofile
+update_text
 
 display() {
-  local sep=" | "
+  local sep="]["
   local spa=" "
-  local bar="$sep$bluetooth$sep$speaker$spa$microphone$sep$backlight$sep$bat$sep$date$spa$time$spa"
+  local leftsep="["
+  local rightsep="]"
+  local logo=""
+  local bar="$rightsep$rightsep$spa$spa$leftsep$text$sep$profile$spa$bluetooth$sep$speaker$spa$microphone$sep$backlight$spa$bat$sep$date$spa$time$rightsep$spa$logo$spa"
   xsetroot -name "$bar" >/dev/null 2>&1
 }
 
 trap "update_speaker;display" "RTMIN"
 trap "update_backlight;display" "RTMIN+1"
 trap "update_microphone;display" "RTMIN+2"
+trap "update_powerprofile;display" "RTMIN+3"
+trap "update_text;display" "RTMIN+4"
 
 while true; do
   sleep 1 &
   wait && {
     [ $((sec % 5)) -eq 0 ] && update_speaker
+    [ $((sec % 60)) -eq 0 ] && update_microphone
     [ $((sec % 5)) -eq 0 ] && update_bluetooth
     [ $((sec % 1)) -eq 0 ] && update_date
     [ $((sec % 1)) -eq 0 ] && update_time

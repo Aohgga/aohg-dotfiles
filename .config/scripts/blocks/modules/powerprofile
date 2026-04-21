@@ -1,0 +1,23 @@
+#!/bin/sh
+
+PREFIX_PERF="󰓅-P"
+PREFIX_BALA="󰾅-B"
+PREFIX_SAVE="󰾆-S"
+
+get_powerprofile() {
+  profile=$(powerprofilesctl get)
+  case "$profile" in
+  performance)
+    echo $PREFIX_PERF
+    ;;
+  balanced)
+    echo $PREFIX_BALA
+    ;;
+  power-saver)
+    echo $PREFIX_SAVE
+    ;;
+  esac
+
+}
+
+get_powerprofile
