@@ -15,10 +15,10 @@ static unsigned int baralpha        = 0x99;
 static unsigned int borderalpha     = 0x99;
 static MAYBE_CONST char normbgcolor[]           = "#000000";
 static MAYBE_CONST char normbordercolor[]       = "#444444";
-static MAYBE_CONST char normfgcolor[]           = "#999999";
-static MAYBE_CONST char selfgcolor[]            = "#26233a";
+static MAYBE_CONST char normfgcolor[]           = "#aaaaaa";
+static MAYBE_CONST char selfgcolor[]            = "#cccccc";
 static MAYBE_CONST char selbordercolor[]        = "#808080";
-static MAYBE_CONST char selbgcolor[]            = "#d7827e";
+static MAYBE_CONST char selbgcolor[]            = "#202020";
 static MAYBE_CONST char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -131,7 +131,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      spawn,          SHCMD("kitty -e musicfox") },
 	{ MODKEY,                       XK_n,      spawn,          SHCMD("xprop >what.txt") },
 	{ MODKEY,                       XK_v,      spawn,          SHCMD("clipmenu") },
-	{ MODKEY,                       XK_semicolon,spawn,        SHCMD("rofimoji --max-recent 0 --no-frecency") },
+	{ MODKEY,                       XK_semicolon,spawn,        SHCMD("rofimoji --use-icons --max-recent 0 --no-frecency") },
 	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
 	{ MODKEY,                       XK_Print,  spawn,          SHCMD("flameshot launcher") },
 	{ MODKEY,                       XK_Escape, spawn,          SHCMD("rofi -show p -modi p:rofi-power-menu -theme .local/share/rofi/themes/simple-tokyonight2.rasi") },
