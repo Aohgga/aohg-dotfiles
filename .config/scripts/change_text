@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "$1" >$HOME/.cache/text
+kill -38 "$(cat ~/.cache/blocks)"
