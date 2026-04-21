@@ -1,0 +1,116 @@
+* {
+  font:   "汉仪旗黑 65S 13";
+
+  bg0     : #20202066;
+  bg1     : #20202099;
+  bg2     : #ffffff33;
+  bg3     : #ff000080;
+  bdc     : #80808080;
+  fg0     : #ffffffcc;
+  fg1     : #ffffffee;
+
+  background-color : transparent;
+  text-color       : @fg0;
+
+  margin  : 0;
+  padding : 0;
+  spacing : 0;
+}
+
+element-icon, element-text, scrollbar {
+  cursor: pointer;
+}
+
+window {
+  location : center;
+  width    : 640px;
+  background-color: @bg1;
+  border: 2px;
+  border-color: @bdc;
+  border-radius: 10px;
+}
+
+inputbar {
+  spacing  : 16px;
+  padding  : 16px;
+  children : [ icon-search, entry ];
+
+  background-color: @bg0;
+}
+
+icon-search, entry, element-icon, element-text {
+  vertical-align: 0.5;
+}
+
+icon-search {
+  expand   : false;
+  filename : "search-symbolic";
+  size     : 24px;
+  margin   : 0 3px 0 9px;
+}
+
+textbox {
+  padding          : 4px 8px;
+  background-color : @bg2;
+}
+
+listview {
+  padding      : 13px 6px 13px 13px;
+  lines        : 9;
+  columns      : 1;
+  scrollbar    : true;
+  fixed-height : false;
+  dynamic      : true;
+  border       : 2px 0 0 0;
+  border-color : @bdc;
+}
+
+element {
+  padding : 6px 8px;
+  spacing : 8px;
+  margin:   2px;
+}
+
+element normal urgent {
+  text-color: @bg3;
+}
+
+element normal active {
+  text-color: @bg2;
+}
+
+element alternate active {
+  text-color: @bg2;
+}
+
+element selected {
+  text-color       : @fg1;
+  background-color : @bg2;
+  border-radius    : 4px;
+  border:   1px;
+  border-color: @bdc;
+}
+
+element selected urgent {
+  background-color: @bg3;
+}
+
+element-icon {
+  size: 1em;
+  margin: 0 6px 0 0;
+  padding: 1px;
+  border: 1px;
+  border-color: @bdc;
+  background-color: @bg2;
+  border-radius: 3px;
+}
+
+element-text {
+  text-color: inherit;
+}
+
+scrollbar {
+  handle-width : 3px;
+  handle-color : @bdc;
+  padding      : 0 0 0 4px;
+}
