@@ -830,8 +830,9 @@ void
 drawbar(Monitor *m)
 {
 	int x, w, tw = 0;
-	int boxs = drw->fonts->h / 9;
+  int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
+	int boxh = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 #if OCCUPIED_TAGS_DECORATION
   const char *tagtext;	
@@ -862,8 +863,8 @@ drawbar(Monitor *m)
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+    if (occ & 1 << i)
+			drw_rect(drw, x + boxs, boxs, boxw, boxh,
 				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
 				urg & 1 << i);
 #else
@@ -877,7 +878,7 @@ drawbar(Monitor *m)
 
 	w = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	x = drw_text(drw, x, 0, w - 6, bh, lrpad / 2 * 0.5, m->ltsymbol, 0);
 
 #if INFINITE_TAGS && IT_SHOW_COORDINATES_IN_BAR
 
@@ -889,13 +890,13 @@ drawbar(Monitor *m)
   if (selmon->lt[selmon->sellt]->arrange == NULL) {
     int tagidx = getcurrenttag(m);
     char coords[64];
-    snprintf(coords, sizeof(coords), "[x%d y%d]", 
+    snprintf(coords, sizeof(coords), "[%d,%d]  [[",
       m->canvas[tagidx].cx / COORDINATES_DIVISOR,
       m->canvas[tagidx].cy / COORDINATES_DIVISOR);
     w = TEXTW(coords);
     drw_setscheme(drw, scheme[SchemeNorm]);
-    drw_text(drw, x, 0, w, bh, lrpad / 2, coords, 0);
-    x += w;
+    drw_text(drw, x, 0, w - 6, bh, lrpad / 2 * 0, coords, 0);
+    x += w - 6;
   }
 
 #endif
@@ -908,12 +909,10 @@ drawbar(Monitor *m)
       drw_setscheme(drw, scheme[m == selmon ? SchemeNorm : SchemeNorm]);
 #endif
 #if !BAR_PADDING
-			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+			drw_text(drw, x, 0, w, bh, lrpad / 2 * 0, m->sel->name, 0);
 #else
-      drw_text(drw, x, 0, w - 2 * sp, bh, lrpad / 2, m->sel->name, 0);
+      drw_text(drw, x, 0, w - 2 * sp -8, bh, lrpad / 2 * 0, m->sel->name, 0);
 #endif
-			if (m->sel->isfloating)
-				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
 #if !BAR_PADDING
@@ -1376,7 +1375,7 @@ monocle(Monitor *m)
 		if (ISVISIBLE(c))
 			n++;
 	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]  [[", n);
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
 		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 }
@@ -2024,7 +2023,7 @@ setup(void)
   drw = drw_create(dpy, screen, root, sw, sh, visual, depth, cmap);
 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
 		die("no fonts could be loaded.");
-	lrpad = drw->fonts->h*0.75;
+	lrpad = drw->fonts->h*0.72;
 #if !BAR_HEIGHT
 	bh = drw->fonts->h + 2;
 #else

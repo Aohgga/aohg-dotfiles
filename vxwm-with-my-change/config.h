@@ -82,7 +82,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -92,8 +92,8 @@ static const int refreshrate = 360;  /* refresh rate (per second) for client mov
 static const Layout layouts[] = {
 	/* symbol     arrange function */
   { "[F]",      NULL },    /* no layout function means floating behavior */
-	{ "[T]",      tile },    /* first entry is default */
-	{ "[M]",      monocle },
+	{ "[T]  [[",      tile },    /* first entry is default */
+	{ "[M]  [[",      monocle },
 };
 
 /* key definitions */
@@ -134,6 +134,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_semicolon,spawn,        SHCMD("rofimoji --max-recent 0 --no-frecency") },
 	{ 0,                            XK_Print,  spawn,          SHCMD("flameshot gui") },
 	{ MODKEY,                       XK_Print,  spawn,          SHCMD("flameshot launcher") },
+	{ MODKEY,                       XK_Escape, spawn,          SHCMD("rofi -show p -modi p:rofi-power-menu -theme .local/share/rofi/themes/simple-tokyonight2.rasi") },
+	{ MODKEY|ControlMask,           XK_l,      spawn,          SHCMD("xsecurelock") },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("~/.config/scripts/changepowerprofile") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -169,6 +172,10 @@ static const Key keys[] = {
   { 0|ControlMask|ShiftMask,      XK_F3,                   spawn, SHCMD("~/.config/scripts/volume source 1%+") },
   { 0|ControlMask|ShiftMask,      XK_F2,                   spawn, SHCMD("~/.config/scripts/volume source 1%-") },
   { 0|ControlMask,                XK_F1,                   spawn, SHCMD("~/.config/scripts/volume source mute") },
+  { 0,                            XF86XK_AudioPlay,        spawn, SHCMD("playerctl play-pause") },
+  { 0,                            XF86XK_AudioStop,        spawn, SHCMD("playerctl stop") },
+  { 0,                            XF86XK_AudioPrev,        spawn, SHCMD("playerctl previous") },
+  { 0,                            XF86XK_AudioNext,        spawn, SHCMD("playerctl next") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

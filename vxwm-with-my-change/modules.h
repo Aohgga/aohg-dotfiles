@@ -37,20 +37,20 @@ Even though this sounds complex, it is actually pretty lightweight, and is very 
 
 /* Kind of eye candy */
 #define GAPS 1 // Gaps support.
-#define XRDB 0 // Xrdb support.
+#define XRDB 1 // Xrdb support.
 
 
 
 /* Tagging */
 #define TAG_TO_TAG 1 // If you switch to tag where you already are, it'll switch to previous tag.
-#define SLOWER_TAGS_ANIMATION 0 // This slows down tags animation speed, which results in smoother tags animations (requires picom to see any difference).
+#define SLOWER_TAGS_ANIMATION 1 // This slows down tags animation speed, which results in smoother tags animations (requires picom to see any difference).
 #define WINDOWMAP 1
 /* This makes the windows get mapped or unmapped in X11. This results in certain
    behaviour being enabled, some examples are: fix issues with some applications 
    losing input forever after a tag change or when you use a compositor like picom, 
    your windows will fade in and out when you switch dwm tags. */
 
-#define PDWM_LIKE_TAGS_ANIMATION 0
+#define PDWM_LIKE_TAGS_ANIMATION 1
 /* This makes function showhide be like in pdwm, if using a compositor like picom,
    this results in an alternative tags animation. */
 
@@ -58,26 +58,26 @@ Even though this sounds complex, it is actually pretty lightweight, and is very 
 
 /* Bar */
 /* Internal */
-#define ALT_CENTER_OF_BAR_COLOR 0 // changes center of bar color to a dark color.
+#define ALT_CENTER_OF_BAR_COLOR 1 // changes center of bar color to a dark color.
 #define BAR_HEIGHT 1 // Support for changing bar height.
 #define BAR_PADDING 1 // Support for changing the bar padding.
 #define OCCUPIED_TAGS_DECORATION 0 // This provides the ability to use an alternative text for tags which contain at least one window aka occupied tags.
 
 /* External */
-#define EXTERNAL_BARS 1 // Support for external bars, essencial if you want to use external bars.
-#define EWMH_TAGS 1 // Support for EWMH tags, recommended if you want to use external bars with less pain
+#define EXTERNAL_BARS 0 // Support for external bars, essencial if you want to use external bars.
+#define EWMH_TAGS 0 // Support for EWMH tags, recommended if you want to use external bars with less pain
 
 
 
 /* Warp to client */
-#define WARP_TO_CLIENT 0 // Includes the warp to client function needed for all options below.
+#define WARP_TO_CLIENT 1 // Includes the warp to client function needed for all options below.
 #define WARP_TO_CENTER_OF_NEW_WINDOW 0 // Warps the cursor to center of the new window.
 #define WARP_TO_CENTER_OF_PREVIOUS_WINDOW 0 // Warps cursor to center of the previous window after closing a window.
-#define WARP_TO_CENTER_OF_ZOOMED_WINDOW 0 // Warps cursor to center of the window that was zoomed using zoom function.
-#define WARP_TO_CENTER_OF_WINDOW_AFFECTED_BY_INCNMASTER 0 // Warps the cursor to center of the window that gets affected in use of incnmaster.
-#define WARP_TO_CENTER_OF_WINDOW_AFFECTED_BY_ENHANCED_TOGGLE_FLOATING 0 // Warps cursor to center of the window that was affected by using enhancedtogglefloating function.
-#define WARP_TO_CENTER_OF_WINDOW_AFFECTED_BY_FOCUSSTACK 0 // Warps cursor to center of the window that was focused by using focusstack function. 
-#define WARP_TO_CENTER_OF_WINDOW_MOVED_BY_KEYBOARD 0 // Warps cursor to center of the window that is moved by moveresize function. 
+#define WARP_TO_CENTER_OF_ZOOMED_WINDOW 1 // Warps cursor to center of the window that was zoomed using zoom function.
+#define WARP_TO_CENTER_OF_WINDOW_AFFECTED_BY_INCNMASTER 1 // Warps the cursor to center of the window that gets affected in use of incnmaster.
+#define WARP_TO_CENTER_OF_WINDOW_AFFECTED_BY_ENHANCED_TOGGLE_FLOATING 1 // Warps cursor to center of the window that was affected by using enhancedtogglefloating function.
+#define WARP_TO_CENTER_OF_WINDOW_AFFECTED_BY_FOCUSSTACK 1 // Warps cursor to center of the window that was focused by using focusstack function. 
+#define WARP_TO_CENTER_OF_WINDOW_MOVED_BY_KEYBOARD 1 // Warps cursor to center of the window that is moved by moveresize function. 
 
 
 
