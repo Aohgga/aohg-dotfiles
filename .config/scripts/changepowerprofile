@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set_powerprofile() {
+  profile=$(powerprofilesctl get)
+  case "$profile" in
+  performance)
+    powerprofilesctl set balanced
+    kill -37 "$(cat ~/.cache/blocks)"
+    ;;
+  balanced)
+    powerprofilesctl set power-saver
+    kill -37 "$(cat ~/.cache/blocks)"
+    ;;
+  power-saver)
+    powerprofilesctl set performance
+    kill -37 "$(cat ~/.cache/blocks)"
+    ;;
+  esac
+
+}
+
+set_powerprofile
