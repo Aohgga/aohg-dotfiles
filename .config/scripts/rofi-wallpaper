@@ -1,0 +1,22 @@
+#!/bin/bash
+
+WALLPATH=$HOME/Pictures/Wallpapers
+
+if [[ -z "$1" ]]; then
+  for file in $WALLPATH/*; do
+    if [ -f "$file" ]; then
+      filename="${file##*/}"
+      printf "$filename\0icon\x1f$file\n"
+    fi
+  done
+else
+  case "$XDG_SESSION_TYPE" in
+  wayland)
+    awww img $WALLPATH/$1 -t random --transition-duration 2 --transition-fps 60
+    ;;
+  x11)
+    xwallpaper --zoom $WALLPATH/$1
+    ;;
+  esac
+  cp $WALLPATH/$1 $HOME/.cache/wallpaper
+fi
