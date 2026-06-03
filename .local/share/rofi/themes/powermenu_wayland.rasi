@@ -1,0 +1,53 @@
+* {
+  background-color : transparent;
+  font: "Maple Mono NL NF CN Regular 14";
+}
+
+window {
+  location: center;
+  width: 42%;
+  background-color: #191724;
+  border: 1px;
+  border-color: #908caa;
+  border-radius: 10px;
+}
+
+mainbox {
+  children: [ "listview" ];
+}
+
+listview {
+  padding: 7px;
+  lines: 1;
+  columns: 4;
+  fixed-height: false;
+  dynamic: true;
+}
+
+element {
+  background-color: #1f1d2e;
+  border-radius: 10px;
+  border: 1px;
+  border-color: #908caa80;
+  margin: 7px;
+  children: [ "element-icon", "element-text" ];
+  orientation: vertical;
+  padding: 25px 20px;
+}
+
+element selected {
+  background-color: #31748f80;
+  border-color: #31748f;
+}
+
+element-icon {
+  size: 36px;
+  icon-color: red;
+  padding: 0 0 5px 0;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+  text-color: #e0def499;
+}
