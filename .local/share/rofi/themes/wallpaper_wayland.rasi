@@ -1,0 +1,52 @@
+* {
+  background-color : transparent;
+}
+
+window {
+  location: center;
+  width: 64%;
+  background-color: #191724;
+  border: 1px;
+  border-color: #908caa;
+  border-radius: 10px;
+}
+
+mainbox {
+  children: [ "listview" ];
+}
+
+listview {
+  padding: 10px;
+  lines: 3;
+  columns: 4;
+  fixed-height: false;
+  dynamic: true;
+}
+
+element {
+  margin: 5px;
+  children: [ "element-icon", "element-text"];
+  orientation: vertical;
+}
+
+element selected {
+  background-color: #31748f80;
+  border-radius: 10px;
+  border: 1px;
+  border-color: #31748f;
+}
+
+element-text {
+  text-color: #808080;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+  margin: -25px 10px 10px 10px;
+  text-color: #e0def499;
+}
+
+element-text selected {
+}
+
+element-icon {
+  size: 20%;
+}
