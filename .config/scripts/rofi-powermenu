@@ -1,0 +1,43 @@
+#!/bin/bash
+
+ICONPATH=$HOME/.local/share/rofi/themes/powermenu
+
+poweroff=$ICONPATH/power.svg
+reboot=$ICONPATH/refresh.svg
+logout=$ICONPATH/logout.svg
+lock=$ICONPATH/lock.svg
+
+case "$1" in
+"poweroff")
+  loginctl poweroff
+  ;;
+"reboot")
+  loginctl reboot
+  ;;
+"logout")
+  case "$XDG_SESSION_TYPE" in
+  wayland)
+    niri msg action quit
+    ;;
+  x11)
+    exec rvx
+    ;;
+  esac
+  ;;
+"lock")
+  case "$XDG_SESSION_TYPE" in
+  wayland)
+    swaylock
+    ;;
+  x11)
+    xautolock -locknow
+    ;;
+  esac
+  ;;
+"")
+  printf "poweroff\0icon\x1f$poweroff\n"
+  printf "reboot\0icon\x1f$reboot\n"
+  printf "logout\0icon\x1f$logout\n"
+  printf "lock\0icon\x1f$lock\n"
+  ;;
+esac
