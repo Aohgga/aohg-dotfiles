@@ -1,0 +1,33 @@
+#!/bin/bash
+
+case "$1" in
+sink)
+  TARGET=@DEFAULT_AUDIO_SINK@
+  ;;
+source)
+  TARGET=@DEFAULT_AUDIO_SOURCE@
+  ;;
+esac
+
+case "$2" in
+mute)
+  wpctl set-mute $TARGET toggle
+  GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
+  if [[ $GETMUTE = MUTED ]]; then
+    notify-send 静音 -a 'osd' -h string:x-canonical-private-synchronous:volume -h int:value:0
+  else
+    GETVOL=$(wpctl get-volume $TARGET | sed 's/[^0-9]//g; s/^0\{1,2\}//')
+    notify-send $GETVOL -a 'osd' -h string:x-canonical-private-synchronous:volume -h int:value:$GETVOL
+  fi
+  ;;
+*)
+  GETMUTE=$(wpctl get-volume $TARGET | grep -q MUTED && echo MUTED)
+  if [[ $GETMUTE = MUTED ]]; then
+    notify-send 静音 -a 'osd' -h string:x-canonical-private-synchronous:volume -h int:value:0
+  else
+    wpctl set-volume $TARGET $2
+    GETVOL=$(wpctl get-volume $TARGET | sed 's/[^0-9]//g; s/^0\{1,2\}//')
+    notify-send $GETVOL -a 'osd' -h string:x-canonical-private-synchronous:volume -h int:value:$GETVOL
+  fi
+  ;;
+esac
